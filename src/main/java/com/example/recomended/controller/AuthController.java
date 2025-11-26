@@ -1,0 +1,28 @@
+package com.example.recomended.controller;
+
+import com.example.recomended.dto.AuthRequest;
+import com.example.recomended.dto.AuthResponse;
+import com.example.recomended.dto.RegisterRequest;
+import com.example.recomended.service.AuthService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor
+public class AuthController {
+    private final AuthService authService;
+
+    @PostMapping("/register")
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest req) {
+        var resp = authService.register(req);
+        return ResponseEntity.ok(resp);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest req) {
+        var resp = authService.login(req);
+        return ResponseEntity.ok(resp);
+    }
+}
