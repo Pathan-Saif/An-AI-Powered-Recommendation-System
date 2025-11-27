@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -30,7 +32,7 @@ public class AuthService {
                 .role("USER")
                 .build();
         userRepository.save(user);
-        String token = jwtUtil.generateToken(user.getId().toString());
+        String token = jwtUtil.generateToken(user.getId().toString(), List.of(user.getRole()));
         return new AuthResponse(token, user.getId(), user.getEmail(), user.getName());
     }
 
@@ -40,7 +42,7 @@ public class AuthService {
         if (!passwordEncoder.matches(req.getPassword(), user.getPasswordHash())) {
             throw new RuntimeException("Invalid credentials");
         }
-        String token = jwtUtil.generateToken(user.getId().toString());
+        String token = jwtUtil.generateToken(user.getId().toString(), List.of(user.getRole()));
         return new AuthResponse(token, user.getId(), user.getEmail(), user.getName());
     }
 }

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/recommend")
 @RequiredArgsConstructor
+@RequestMapping("/api/recommend")
 public class RecommendationController {
     private final RecommendationService recommendationService;
 
