@@ -15,8 +15,7 @@ public class ItemController {
 
     @PostMapping
     public ResponseEntity<Item> create(@RequestBody Item req) {
-        Item created = itemService.createItem(req.getExternalId(), req.getTitle(), req.getMetadata());
-        return ResponseEntity.ok(created);
+        return ResponseEntity.ok(itemService.createItem(req.getExternalId(), req.getTitle(), req.getMetadata()));
     }
 
     @GetMapping

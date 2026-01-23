@@ -8,15 +8,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/recommend")
+@RequiredArgsConstructor
 public class RecommendationController {
     private final RecommendationService recommendationService;
 
     @GetMapping("/{userId}")
     public ResponseEntity<List<RecommendationDto>> recommend(
-            @PathVariable Long userId, @RequestParam(defaultValue = "10") int k) {
-        var recs = recommendationService.getRecommendations(userId, k);
-        return ResponseEntity.ok(recs);
+            @PathVariable Long userId,
+            @RequestParam(defaultValue = "10") int k) {
+
+        if (userId == null || k <= 0) {
+            return ResponseEntity.badRequest().build(); // 400 if invalid
+        }
+
+        return ResponseEntity.ok(recommendationService.getRecommendations(userId, k));
     }
+
 }

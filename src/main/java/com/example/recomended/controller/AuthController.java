@@ -16,13 +16,11 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest req) {
-        var resp = authService.register(req);
-        return ResponseEntity.ok(resp);
+        return ResponseEntity.ok(authService.register(req));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest req) {
-        var resp = authService.login(req);
-        return ResponseEntity.ok(resp);
+        return ResponseEntity.ok(authService.login(req));
     }
 }

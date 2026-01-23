@@ -15,7 +15,7 @@ public class ActivityController {
 
     @PostMapping
     public ResponseEntity<UserActivity> record(@RequestBody InteractionRequest req) {
-        var saved = activityService.recordInteraction(req);
-        return ResponseEntity.ok(saved);
+        return ResponseEntity.ok(activityService.recordInteraction(req));
     }
 }
+
