@@ -15,6 +15,7 @@ target/
 *.yml
 *.log
 ### IntelliJ IDEA ###
+.env
 .idea
 *.iws
 *.iml
