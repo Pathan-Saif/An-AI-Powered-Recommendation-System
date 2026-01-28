@@ -32,8 +32,8 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
 
-    @Value("${app.frontend.url}")
-    private String frontendUrl;
+//    @Value("${app.frontend.url}")
+//    private String frontendUrl;
 
 
     @Bean
@@ -88,18 +88,32 @@ public class SecurityConfig {
         return source;
     }
 
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**")
+////                        .allowedOrigins("http://localhost:3000")
+//                        .allowedOrigins(frontendUrl)
+//                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+//                        .allowedMethods("*");
+//            }
+//        };
+//    }
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-//                        .allowedOrigins("http://localhost:3000")
-                        .allowedOrigins(frontendUrl)
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
-                        .allowedMethods("*");
+                        .allowedOriginPatterns("*")
+                        .allowedMethods("*")
+                        .allowedHeaders("*");
             }
         };
     }
+
 
 }
