@@ -1,6 +1,8 @@
 package com.example.recomended.controller;
 
+import com.example.recomended.dto.InteractionRequest;
 import com.example.recomended.dto.RecommendationDto;
+import com.example.recomended.service.MlService;
 import com.example.recomended.service.RecommendationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecommendationController {
     private final RecommendationService recommendationService;
+    private final MlService mlService;
 
     @GetMapping("/{userId}")
     public ResponseEntity<List<RecommendationDto>> recommend(
@@ -23,6 +26,12 @@ public class RecommendationController {
         }
 
         return ResponseEntity.ok(recommendationService.getRecommendations(userId, k));
+    }
+
+    @PostMapping("/interactions")
+    public ResponseEntity<?> record(@RequestBody InteractionRequest req) {
+        mlService.recordInteraction(req);
+        return ResponseEntity.ok().build();
     }
 
 }

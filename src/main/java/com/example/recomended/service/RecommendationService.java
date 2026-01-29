@@ -16,7 +16,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class RecommendationService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
     @Value("${app.ml.base-url}")
     private String mlBaseUrl;
@@ -41,6 +41,4 @@ public class RecommendationService {
             return dto;
         }).toList();
     }
-
-
 }

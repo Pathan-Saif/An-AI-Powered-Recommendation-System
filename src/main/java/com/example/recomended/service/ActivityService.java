@@ -5,13 +5,16 @@ import com.example.recomended.entity.Item;
 import com.example.recomended.entity.UserActivity;
 import com.example.recomended.repository.ActivityRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ActivityService {
     private final ActivityRepository activityRepository;
     private final ItemService itemService;
+    private final MlService mlService;
 
     public UserActivity recordInteraction(InteractionRequest req) {
         Item item = itemService.findOrCreateByExternalId(req.getExternalItemId());
@@ -21,6 +24,14 @@ public class ActivityService {
                 .eventType(req.getEventType())
                 .value(req.getValue())
                 .build();
-        return activityRepository.save(ua);
+        UserActivity saved = activityRepository.save(ua);
+
+        try {
+            mlService.recordInteraction(req);
+        } catch (Exception e) {
+            log.warn("ML service unavailable, interaction saved only in DB", e);
+        }
+
+        return saved;
     }
 }
