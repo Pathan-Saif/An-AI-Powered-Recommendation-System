@@ -94,10 +94,10 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-//                        .allowedOrigins("http://localhost:3000")
-                        .allowedOrigins(frontendUrl)
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
-                        .allowedMethods("*");
+                        .allowedOrigins(frontendUrl != null ? frontendUrl : "http://localhost:3000")
+                        .allowedMethods("*")
+                        .allowedHeaders("*");
+
             }
         };
     }
