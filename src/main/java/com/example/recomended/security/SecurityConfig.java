@@ -45,8 +45,8 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
-                        // public endpoints
                         .requestMatchers(
+                                "/auth/**",
                                 "/api/auth/**",
                                 "/ping",
                                 "/actuator/health",
@@ -54,11 +54,6 @@ public class SecurityConfig {
                                 "/api/recommend/**",
                                 "/api/interactions/**"
                         ).permitAll()
-
-                        // admin only
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-
-                        // everything else needs auth
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
