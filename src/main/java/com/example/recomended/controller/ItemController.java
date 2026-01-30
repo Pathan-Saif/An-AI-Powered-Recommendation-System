@@ -20,6 +20,8 @@ public class ItemController {
 
     @GetMapping
     public ResponseEntity<List<Item>> list() {
-        return ResponseEntity.ok(itemService.listRecent());
+        List<Item> items = itemService.listRecent();
+        items.forEach(i -> System.out.println(i.getExternalId()));
+        return ResponseEntity.ok(items);
     }
 }
