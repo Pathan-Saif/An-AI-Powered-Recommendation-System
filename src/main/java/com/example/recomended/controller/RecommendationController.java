@@ -30,6 +30,7 @@ public class RecommendationController {
 
     @PostMapping("/interactions")
     public ResponseEntity<?> record(@RequestBody InteractionRequest req) {
+        System.out.println("INTERACTION HIT: " + req);
         mlService.recordInteraction(req);
         return ResponseEntity.ok().build();
     }
