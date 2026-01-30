@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 public class MlService {
 
-    @Value("${app.ml.base-url}")
+    @Value("${app.ml.base.url}")
     private String mlBaseUrl;
 
     @Autowired
