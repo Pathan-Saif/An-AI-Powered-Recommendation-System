@@ -18,10 +18,10 @@ public class RecommendationService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${app.ml.base-url}")
+    @Value("${app.ml.base.url}")
     private String mlBaseUrl;
 
-    @Value("${app.ml.recommend-endpoint}")
+    @Value("${app.ml.recommend.endpoint}")
     private String mlRecommendEndpoint;
 
     public List<RecommendationDto> getRecommendations(Long userId, int k) {
