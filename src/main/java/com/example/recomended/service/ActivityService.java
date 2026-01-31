@@ -28,7 +28,6 @@ public class ActivityService {
 
         try {
             mlService.recordInteraction(req);
-            mlService.trainModel();
         } catch (Exception e) {
             log.warn("ML service unavailable, interaction saved only in DB", e);
         }
