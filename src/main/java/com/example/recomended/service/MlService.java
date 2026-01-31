@@ -1,6 +1,7 @@
 package com.example.recomended.service;
 
 import com.example.recomended.dto.InteractionRequest;
+import com.example.recomended.dto.MlInteractionRequest;
 import com.example.recomended.dto.RecommendationDto;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -20,16 +21,25 @@ public class MlService {
     @Value("${app.ml.base.url}")
     private String mlBaseUrl;
 
-    @Autowired
-    private  RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public void recordInteraction(InteractionRequest req) {
         try {
-            restTemplate.postForObject(mlBaseUrl + "/interaction", req, Void.class);
+            MlInteractionRequest mlReq = new MlInteractionRequest();
+            mlReq.setUserId(req.getUserId().intValue());
+            mlReq.setExternalItemId(req.getExternalItemId());
+            mlReq.setEventType(req.getEventType());
+
+            restTemplate.postForObject(
+                    mlBaseUrl + "/interaction",
+                    mlReq,
+                    Void.class
+            );
         } catch (Exception e) {
             log.error("ML interaction call failed", e);
         }
     }
+
 
     @Data
     public static class RecommendationResponse {

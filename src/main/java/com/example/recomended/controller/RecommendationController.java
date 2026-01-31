@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecommendationController {
     private final RecommendationService recommendationService;
-    private final MlService mlService;
+//    private final MlService mlService;
 
     @GetMapping("/{userId}")
     public ResponseEntity<List<RecommendationDto>> recommend(
@@ -28,11 +28,11 @@ public class RecommendationController {
         return ResponseEntity.ok(recommendationService.getRecommendations(userId, k));
     }
 
-    @PostMapping("/interactions")
-    public ResponseEntity<?> record(@RequestBody InteractionRequest req) {
-        System.out.println("INTERACTION HIT: " + req);
-        mlService.recordInteraction(req);
-        return ResponseEntity.ok().build();
-    }
+//    @PostMapping("/interactions")
+//    public ResponseEntity<?> record(@RequestBody InteractionRequest req) {
+//        System.out.println("INTERACTION HIT: " + req);
+//        mlService.recordInteraction(req);
+//        return ResponseEntity.ok().build();
+//    }
 
 }
